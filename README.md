@@ -1,1 +1,1 @@
-# weight-tracker-app
+# Weight Tracker App
