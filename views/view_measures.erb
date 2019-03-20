@@ -16,17 +16,28 @@
         </tr>
       </thead>
       <tbody>
+        <% last_height = 0 %>
+        <% last_weight = 0 %>
+        <% last_BMI = 0 %>
         <% @user_data.measures.each do |x| %>
+        <% height_variation = (x.height - last_height) >= 0 ? "+" : "-" %>
+        <% weight_variation = (x.weight - last_weight) >= 0 ? "+" : "-" %>
+        <% BMI = (x.weight / (x.height * x.height)).round(2) %>
+        <% BMI_variation = (BMI - last_BMI) >= 0 ? "+" : "-" %>
+
         <tr>
           <td><%= x.date %></td>
           <td><%= x.height %></td>
-          <td></td>
+          <td><%= height_variation %></td>
           <td><%= x.weight %></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= weight_variation %></td>
+          <td><%= BMI %></td>
+          <td><%= BMI_variation %></td>
           <td><%= x.calc_ideal_weight(@user_data.gender) %></td>
         </tr>
+        <% last_height = x.height %>
+        <% last_weight = x.weight %>
+        <% last_BMI = BMI %>
         <% end %>
       </tbody>
     </table>
