@@ -1,5 +1,13 @@
 # Weight Tracker App - Ruby Module Evaluation
 
+## Team Mighty Tracker
+
+* Mayra Navarro (Project Coordinator)
+* Frank Condezo (Tech Lead)
+* Diego Torres
+* Carlos Ayala
+* Christopher Roa
+
 ## Instructions
 
 Welcome to the evaluation for the Ruby module, where we’ll emulate the workflow of a software project. You will be assigned to a 4-5 people team and given an app to be build. Each group will have a different application, with different requirements. So no two projects will be the same.
