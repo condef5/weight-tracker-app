@@ -24,13 +24,20 @@
         <% weight_variation = (x.weight - last_weight) >= 0 ? "+" : "-" %>
         <% BMI = (x.weight / (x.height * x.height)).round(2) %>
         <% BMI_variation = (BMI - last_BMI) >= 0 ? "+" : "-" %>
+        <% if  weight_variation == "+" && x.weight < x.calc_ideal_weight(@user_data.gender) %>
+          <% color = "yellowgreen" %>
+        <% elsif  weight_variation == "-" && x.weight > x.calc_ideal_weight(@user_data.gender) %>
+          <% color = "yellowgreen" %>
+        <% else %>
+          <% color = "salmon" %>
+        <% end %>
 
         <tr>
           <td><%= x.date %></td>
           <td><%= x.height %></td>
           <td><%= height_variation %></td>
           <td><%= x.weight %></td>
-          <td><%= weight_variation %></td>
+          <td style="background-color:<%= color %> "><%= weight_variation %></td>
           <td><%= BMI %></td>
           <td><%= BMI_variation %></td>
           <td><%= x.calc_ideal_weight(@user_data.gender) %></td>
