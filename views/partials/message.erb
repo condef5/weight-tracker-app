@@ -1,5 +1,5 @@
 <% if flash[:message] %>
-  <div class="notification is-success">
+  <div class="notification <%= flash[:message_type] %>">
     <button class="delete"></button>
     <%= flash[:message] %>
   </div>
