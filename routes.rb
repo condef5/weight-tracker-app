@@ -11,8 +11,11 @@ end
 # end
 
 get "/view_measures" do
-  @user_data = User::find("diego@mail.com")
-  erb :view_measures
+  @user_data = User.find("diego@mail.com")
+  if params.empty?
+    params["milestone"] = "fixed"
+  end
+  erb :view_measures, { :locals => params }
 end
 
 set :port, 8000
