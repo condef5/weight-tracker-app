@@ -91,4 +91,18 @@ class User
     end
     last_users.sort { |a,b| b[:days] <=> a[:days]}
   end
+
+    # method save_milestone
+  def self.save_milestone(milestone, email)
+    users = self.read
+    users = users.map do |user|
+      if user["email"] == email
+        user["set_milestone"] = milestone
+        user
+      else
+        user
+      end
+    end
+    self.save_data_to_json(users.to_json)
+  end
 end

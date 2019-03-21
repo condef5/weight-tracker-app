@@ -50,16 +50,7 @@ get '/logout' do
   redirect '/'
 end
 
-# get '/user' do
-#   erb :user
-# end
-
 get "/view_measures" do
-  # @user_data = User.find("diego@mail.com")
-  # if params.empty?
-  #   params["milestone"] = "fixed"
-  # end
-  # erb :view_measures, { :locals => params }
   if session[:user_email]
     @current_user = User.find(session[:user_email])
     if params.empty?
@@ -71,4 +62,25 @@ get "/view_measures" do
   end
 end
 
+get '/milestone' do
+  if session[:user_email]
+    @current_user = User.find(session[:user_email])
+    measure_last = @current_user.measures.first
+    @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
+    erb :milestone
+  else
+  flash[:message] = "You are not login"
+  flash[:message_type] = "is-danger"
+  redirect "/login"
+  end
+end
+
+post "/save_weight_wanted" do
+  @current_user = User.find(session[:user_email])
+  User.save_milestone(params["weight_wanted"], @current_user.email)
+  redirect "/view_measures"
+end
+
 set :port, 8000
+
+
