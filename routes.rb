@@ -1,8 +1,8 @@
 require 'sinatra'
 require 'sinatra/reloader' # reload server
 require 'sinatra/flash'
-require_relative './models/User'
-require_relative "./controllers/generateCSV"
+require_relative 'models/User'
+require_relative 'controllers/generateCSV'
 require './helpers'
 
 
