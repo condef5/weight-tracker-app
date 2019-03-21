@@ -91,4 +91,39 @@ class User
     end
     last_users.sort { |a,b| b[:days] <=> a[:days]}
   end
+
+  def height_variation(index)
+    return 0 if @measures[index +1].nil?
+    last_height = @measures[index +1].height
+    diff = (@measures[index].height - last_height).round(2)
+    diff >= 0 ? "+#{diff}" : diff
+  end
+
+  def weight_variation(index)
+    return 0 if @measures[index +1].nil?
+    last_weight = @measures[index +1].weight
+    diff = (@measures[index].weight - last_weight).round(2)
+    diff >= 0 ? "+#{diff}" : diff
+  end
+
+  def bmi_variation(index)
+    return 0 if @measures[index +1].nil?
+    last_bmi = @measures[index +1].calc_bmi
+    diff = (@measures[index].calc_bmi - last_bmi).round(2)
+    diff >= 0 ? "+#{diff}" : diff
+  end
+
+  def weight_color(index, milestone)
+    compare = (milestone == "fixed" ? @measures[index].calc_ideal_weight(@gender) : @set_milestone )
+    if compare == ""
+      return ""
+    elsif weight_variation(index).to_f >= 0 && @measures[index].weight < compare
+      "yellowgreen"
+    elsif weight_variation(index).to_f < 0 && @measures[index].weight > compare
+      "yellowgreen"
+    else
+      "salmon"
+    end
+  end
+
 end
