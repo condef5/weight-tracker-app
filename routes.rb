@@ -1,8 +1,10 @@
 require 'sinatra'
 require 'sinatra/reloader' # reload server
 require 'sinatra/flash'
-require './models/User'
+require_relative 'models/User'
+require_relative 'controllers/generateCSV'
 require './helpers'
+
 
 enable :sessions
 
@@ -64,6 +66,29 @@ get "/view_measures" do
   end
 end
 
+get "/admin" do
+  redirect "/admin/week"
+end
+
+get "/admin/week" do
+  @data = User.by_last_week
+  erb :admin
+end
+
+get "/admin/month" do
+  @data = User.by_last_month
+  erb :admin
+end
+
+get '/admin/download' do
+  fileCSV = generateCSV
+  # puts fileCSV
+  content_type "application/csv"
+  attachment "data.csv"
+  fileCSV
+  # send_data fileCSV, :filename => "data.csv", :type => 'Application/octet-stream'
+end
+
 get '/milestone' do
   if session[:user_email]
     @current_user = User.find(session[:user_email])
@@ -81,6 +106,7 @@ post "/save_weight_wanted" do
   @current_user = User.find(session[:user_email])
   User.save_milestone(params["weight_wanted"], @current_user.email)
   redirect "/view_measures"
+
 end
 
 set :port, 8000

@@ -87,11 +87,22 @@ class User
     users = self.all
     last_users = users.map do |user|
       days = user.measures.select { |m| m.date > last_week }.length
-      { :name => user.name, :days => days}
+      { :name => user.name, :days => days }
     end
     last_users.sort { |a,b| b[:days] <=> a[:days]}
   end
 
+  def self.by_last_month
+    now = Date.today
+    last_moth = (now - 30).strftime("%m/%d/%y")
+    # all users
+    users = self.all
+    last_users = users.map do |user|
+      days = user.measures.select { |m| m.date > last_moth }.length
+      { :name => user.name, :days => days }
+    end
+    last_users.sort { |a, b| b[:days] <=> a[:days]}
+  end
     # method save_milestone
   def self.save_milestone(milestone, email)
     users = self.read
