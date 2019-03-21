@@ -1,0 +1,59 @@
+<nav class="navbar has-shadow is-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+          src="https://bulma.io/images/bulma-logo.png"
+          alt="Bulma: a modern CSS framework based on Flexbox"
+        />
+      </a>
+      <div
+        class="navbar-burger burger"
+        data-target="navbarExampleTransparentExample"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div id="navbarExampleTransparentExample" class="navbar-menu">
+      <div class="navbar-end">
+        <% if @current_user %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <figure class="image is-32x32" style="margin-right: 0.5em;">
+              <img
+                src="https://avatars1.githubusercontent.com/u/7221389?v=4&amp;s=32"
+              />
+            </figure>
+            <%= @current_user.name %>
+          </a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item">
+              <span class="icon is-small">
+                <i class="fa fa-user-o"></i>
+              </span>
+              Profile
+            </a>
+            <hr class="navbar-divider" />
+            <a class="navbar-item" href="/logout">
+              <span class="icon is-small">
+                <i class="fa fa-power-off"></i>
+              </span>
+              Logout
+            </a>
+          </div>
+        </div>
+        <% else %>
+        <a class="navbar-item" href="/login">
+          Login
+        </a>
+        <a class="navbar-item active" href="/">
+          Register
+        </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

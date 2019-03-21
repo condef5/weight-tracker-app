@@ -1,14 +1,14 @@
 <section class="section" id="content">
     <a class="button is-primary" href="/">Add new measure</a>
     <a class="button is-secundary" href="/">Set your Goal</a>
-    <h1 class="title">Historic measures of <%= @user_data.name %></h1>
+    <h1 class="title">Historic measures of <%= @current_user.name %></h1>
     <div class="buttons has-addons">
       <span class="button is-static" >Compare weight against: </span>
       <a class="button <%= milestone == "fixed" ? "is-focused" : ""%>" href="/view_measures">Ideal weight</a>
       <a class="button <%= milestone == "user" ? "is-focused" : ""%>" href="/view_measures?milestone=user">Set Goal</a>
     </div>
     
-    <% if milestone == "user" && @user_data.set_milestone == "" %>
+    <% if milestone == "user" && @current_user.set_milestone == "" %>
       <%= "<h3>There is no Goal Set. Please Set your Goal. </h3>" %>
       <% no_milestone = true %>
     <% end %>
@@ -29,12 +29,12 @@
         <% last_height = 0 %>
         <% last_weight = 0 %>
         <% last_BMI = 0 %>
-        <% @user_data.measures.each do |x| %>
+        <% @current_user.measures.each do |x| %>
         <% height_variation = (x.height - last_height).round(2) %>
         <% weight_variation = (x.weight - last_weight).round(2) %>
         <% BMI = (x.weight / (x.height * x.height)).round(2) %>
         <% BMI_variation = (BMI - last_BMI).round(2) %>
-        <% compare = (milestone == "fixed" ? x.calc_ideal_weight(@user_data.gender) : @user_data.set_milestone.to_f  ) %>
+        <% compare = (milestone == "fixed" ? x.calc_ideal_weight(@current_user.gender) : @current_user.set_milestone.to_f  ) %>
         <% if  no_milestone %>
           <% color = "" %>
         <% elsif  weight_variation >= 0 && x.weight < compare %>
@@ -53,7 +53,7 @@
           <td style="background-color:<%= color %> "><%= weight_variation >= 0 ? "+#{weight_variation}" : weight_variation %></td>
           <td><%= BMI %></td>
           <td><%= BMI_variation >= 0 ? "+#{BMI_variation}" : BMI_variation %></td>
-          <td><%= x.calc_ideal_weight(@user_data.gender) %></td>
+          <td><%= x.calc_ideal_weight(@current_user.gender) %></td>
         </tr>
         <% last_height = x.height %>
         <% last_weight = x.weight %>
