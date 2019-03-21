@@ -12,7 +12,7 @@ def generateCSV
   # my_hashes = JSON.parse(File.open("data.json").read)
 
   # using class User to parse the Json file
-  user = User.all
+  users = User.all
 
   # get all keys even the ones in nested array
   # cell_title = my_hashes.first.keys.first(4) + my_hashes.first["measures"].first.keys
@@ -26,10 +26,10 @@ def generateCSV
     # write completed column names
     csv << cell_title
   # using main defined classes
-    user.each do |userdata|
-      userdata.measures.each do |each_measure|
+    users.each do |userdata|
+      userdata.measures.each do |measure|
         temp = []
-        temp = [userdata.email, userdata.name, userdata.gender, userdata.set_milestone, each_measure.date, each_measure.height, each_measure.weight]
+        temp = [userdata.email, userdata.name, userdata.gender, userdata.set_milestone, measure.date, measure.height, measure.weight]
 
   # writing rows of data in CSV
         csv << temp

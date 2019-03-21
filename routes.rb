@@ -67,6 +67,10 @@ get "/view_measures" do
 end
 
 get "/admin" do
+  redirect "/admin/week"
+end
+
+get "/admin/week" do
   @data = User.by_last_week
   erb :admin
 end
