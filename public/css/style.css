@@ -58,3 +58,7 @@ p.subtitle {
 .navbar-item .icon:only-child {
   margin-right: 0.5rem;
 }
+
+a.is-link {
+  color: hsl(217, 71%, 53%) !important;
+}
