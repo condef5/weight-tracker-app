@@ -2,31 +2,32 @@ require 'sinatra'
 require 'sinatra/reloader' # reload server
 require 'sinatra/flash'
 require './models/User'
+require './helpers'
 
 enable :sessions
 
 get '/' do
-  if session[:user_email]
-    @current_user = User.find(session[:user_email])
-    erb :home
-  else
-    erb :register, :locals => { :hero => true }
+  protected!
+  if params.empty?
+      params["milestone"] = "fixed"
   end
+  erb :view_measures, { :locals => params }
+end
+
+get '/register' do
+  erb :register, :locals => { :hero => true }
 end
 
 post '/register' do
   begin  
     User.create(params)
     session[:user_email] = params["email"]
-    flash[:message] = "Successful user registration"
-    flash[:message_type] = "is-success"
+    set_flash("Successful user registration")
     redirect '/'
   rescue StandardError => e
-    flash[:message] = e.message
-    flash[:message_type] = "is-danger"
+    set_flash(e.message, :error)
     redirect '/'
   end 
-  
 end
 
 get '/login' do
@@ -37,16 +38,17 @@ post '/login' do
   begin
     user = User.find_login(params["email"], params["password"])
     session[:user_email] = params["email"]
-    redirect '/view_measures'
+    set_flash("Successful user registration")
+    redirect '/'
   rescue StandardError => e
-    flash[:message] = e.message
-    flash[:message_type] = "is-danger"
+    set_flash(e.message, :error)
     redirect '/login'
   end 
 end
 
 get '/logout' do
   session.clear
+  set_flash("You have been successfully logged out!")
   redirect '/'
 end
 
