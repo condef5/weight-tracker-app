@@ -2,9 +2,7 @@ require 'json'
 require 'date'
 require_relative 'Measure.rb'
 
-
 class User
-  
   @@file = 'data.json'
 
   attr_accessor :email, :name, :gender, :set_milestone, :measures
@@ -13,12 +11,16 @@ class User
     @email = email
     @name = name
     @gender = gender
-    @set_milestone= set_milestone
+    @set_milestone= set_milestone || ""
     @measures = measures || []
   end
 
   def self.read
     JSON.parse(File.read(@@file))
+  end
+  
+  def self.save_data_to_json(data)
+    File.write('data.json', data)
   end
 
   def self.relation(measures)
@@ -26,6 +28,22 @@ class User
     measures_orders.map do |measures|
       Measure.new(measures)
     end
+  end
+
+  def self.create(user)
+    users = self.read
+    users.push({
+      "name" => user["name"],
+      "email" => user["email"],
+      "gender" => user["gender"],
+      "password" => user["password"],
+      "measures" => []
+    })
+    self.save_data_to_json(users.to_json)
+  end
+
+  def self.save_measure(measure)
+    
   end
 
   def self.all
