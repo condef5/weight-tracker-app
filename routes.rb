@@ -71,11 +71,13 @@ get "/admin" do
 end
 
 get "/admin/week" do
+  @title = "Most active users by week"
   @data = User.by_last_week
   erb :admin
 end
 
 get "/admin/month" do
+  @title = "Most active users by month"
   @data = User.by_last_month
   erb :admin
 end
