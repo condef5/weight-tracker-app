@@ -1,10 +1,16 @@
 <section class="section" id="content">
-    <a class="button is-primary">Add new measure</a>
-    <a class="button is-secundary">Set your Goal</a>
+    <a class="button is-primary" href="/">Add new measure</a>
+    <a class="button is-secundary" href="/">Set your Goal</a>
     <h1 class="title">Historic measures of <%= @user_data.name %></h1>
-    <h2>Compare against <a href="/view_measures">Ideal weight</a> or <a href="/view_measures?milestone=user">Set Goal</a></h2>
+    <div class="buttons has-addons">
+      <span class="button is-static" >Compare weight against: </span>
+      <a class="button <%= milestone == "fixed" ? "is-focused" : ""%>" href="/view_measures">Ideal weight</a>
+      <a class="button <%= milestone == "user" ? "is-focused" : ""%>" href="/view_measures?milestone=user">Set Goal</a>
+    </div>
+    
     <% if milestone == "user" && @user_data.set_milestone == "" %>
       <%= "<h3>There is no Goal Set. Please Set your Goal. </h3>" %>
+      <% no_milestone = true %>
     <% end %>
     <table class="table">
       <thead>
@@ -29,7 +35,9 @@
         <% BMI = (x.weight / (x.height * x.height)).round(2) %>
         <% BMI_variation = (BMI - last_BMI).round(2) %>
         <% compare = (milestone == "fixed" ? x.calc_ideal_weight(@user_data.gender) : @user_data.set_milestone.to_f  ) %>
-        <% if  weight_variation >= 0 && x.weight < compare %>
+        <% if  no_milestone %>
+          <% color = "" %>
+        <% elsif  weight_variation >= 0 && x.weight < compare %>
           <% color = "yellowgreen" %>
         <% elsif  weight_variation < 0 && x.weight > compare %>
           <% color = "yellowgreen" %>
