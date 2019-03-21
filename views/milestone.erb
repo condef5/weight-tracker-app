@@ -1,4 +1,4 @@
-<h1 class="title" action="/show_fixed_weight" method="GET">
+<h1 class="title"  method="GET">
   Description About Ideal Weight
 </h1>
 <br />
@@ -17,7 +17,7 @@
   type="text"
   style="width:300px"
   name="fixed_weight"
-  value=" <%= @ideal_weight %>.kg "
+  value=" <%= @ideal_weight %> kg "
   readonly
 />
 <br /><br />
@@ -28,11 +28,12 @@
   <label class="label">Enter the Weight you want to reach:</label>
 
   <input
-    class="input is-success"
-    style="width:300px"
-    type="number"
-    placeholder="Whatever you want!"
-    name="weight_wanted"
+    class = "input is-success"
+    style = "width:300px"
+    type = "number"
+    value
+    placeholder = "Whatever you want!"
+    name = "weight_wanted"
   />
   <br /><br />
   <button class="button is-link" style="width:100px">SAVE</button>

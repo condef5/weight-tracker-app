@@ -62,14 +62,11 @@ get "/view_measures" do
   end
 end
 
-###----christoph
 get '/milestone' do
   if session[:user_email]
     @current_user = User.find(session[:user_email])
     measure_last = @current_user.measures.last
     @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
-    puts "----------------------------------"
-    puts @ideal_weight
     erb :milestone
   else
   flash[:message] = "You are not login"
@@ -81,11 +78,8 @@ end
 post "/save_weight_wanted" do
   @current_user = User.find(session[:user_email])
   User.save_milestone(params["weight_wanted"], @current_user.email)
-  puts params["weight_wanted"]
   redirect "/view_measures"
 end
-###---------
-
 
 set :port, 8000
 
