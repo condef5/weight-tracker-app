@@ -37,7 +37,7 @@ post '/login' do
   begin
     user = User.find_login(params["email"], params["password"])
     session[:user_email] = params["email"]
-    redirect '/'
+    redirect '/view_measures'
   rescue StandardError => e
     flash[:message] = e.message
     flash[:message_type] = "is-danger"
@@ -50,8 +50,25 @@ get '/logout' do
   redirect '/'
 end
 
-get '/user' do
-  erb :user
+# get '/user' do
+#   erb :user
+# end
+
+get "/view_measures" do
+  # @user_data = User.find("diego@mail.com")
+  # if params.empty?
+  #   params["milestone"] = "fixed"
+  # end
+  # erb :view_measures, { :locals => params }
+  if session[:user_email]
+    @current_user = User.find(session[:user_email])
+    if params.empty?
+        params["milestone"] = "fixed"
+    end
+      erb :view_measures, { :locals => params }
+  else
+    erb :register, :locals => { :hero => true }
+  end
 end
 
 ###----christoph
