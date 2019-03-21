@@ -5,14 +5,15 @@ require_relative 'Measure.rb'
 class User
   @@file = 'data.json'
 
-  attr_accessor :email, :name, :gender, :set_milestone, :measures
+  attr_accessor :email, :name, :gender, :set_milestone, :measures, :password
   
-  def initialize(email, name, gender, set_milestone, measures)
+  def initialize(email, name, gender, set_milestone, password, measures)
     @email = email
     @name = name
     @gender = gender
     @set_milestone= set_milestone || ""
     @measures = measures || []
+    @password = password || ""
   end
 
   def self.read
@@ -29,17 +30,22 @@ class User
       Measure.new(measures)
     end
   end
+  
 
   def self.create(user)
+    raise 'You need to enter a gender' if user["gender"] == ""
+    raise 'You need to enter a password' if user["password"] == ""
+    raise 'User already existed' unless self.find(user["email"]).nil?
     users = self.read
-    users.push({
-      "name" => user["name"],
-      "email" => user["email"],
-      "gender" => user["gender"],
-      "password" => user["password"],
-      "measures" => []
-    })
+    users << user.merge({ measures: [] })
     self.save_data_to_json(users.to_json)
+  end
+
+  def self.find_login(email, password)
+    user = self.find(email)
+    raise 'User not found' if user.nil?
+    raise 'Incorrect password' if user.password != password
+    return user 
   end
 
   def self.save_measure(measure)
@@ -53,7 +59,8 @@ class User
         user["email"], 
         user["name"], 
         user["gender"], 
-        user["set_milestone"], 
+        user["set_milestone"],
+        user["password"], 
         self.relation(user["measures"])
       )
     end
@@ -62,11 +69,13 @@ class User
   def self.find(email)
     users = self.read
     user = users.detect{ |user| user["email"] ==  email}
+    return nil if user.nil?
     self.new(
       user["email"], 
       user["name"], 
       user["gender"], 
       user["set_milestone"],
+      user["password"], 
       self.relation(user["measures"])
     )
   end
