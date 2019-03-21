@@ -1,0 +1,29 @@
+<section class="section" id="content">
+    <div class="container">
+      <p id="buttonExport">
+        <a href="/admin/download">Export to CSV</a>
+      </p>
+      <ul>
+        <li><a href="/admin">last week</a></li>
+        <li><a href="/admin/month">last month</a></li>
+      </ul>
+      <table class="table">
+        <thead>
+          <tr>
+            <th><abbr title="number">#</abbr></th>
+            <th>User</th>
+            <th>Registered Days</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @data.each_with_index do |user, index| %>
+            <tr>
+              <td><%= index+1 %></td>
+              <td><%= user[:name] %></td>
+              <td><%= user[:days] %></td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
