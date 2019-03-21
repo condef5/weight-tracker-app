@@ -65,7 +65,7 @@ end
 get '/milestone' do
   if session[:user_email]
     @current_user = User.find(session[:user_email])
-    measure_last = @current_user.measures.last
+    measure_last = @current_user.measures.first
     @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
     erb :milestone
   else
