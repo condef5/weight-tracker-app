@@ -87,7 +87,7 @@ class User
     users = self.all
     last_users = users.map do |user|
       days = user.measures.select { |m| m.date > last_week }.length
-      { :name => user.name, :days => days}
+      { :name => user.name, :days => days }
     end
     last_users.sort { |a,b| b[:days] <=> a[:days]}
   end
@@ -114,7 +114,7 @@ class User
   end
 
   def weight_color(index, milestone)
-    compare = (milestone == "fixed" ? @measures[index].calc_ideal_weight(@gender) : @set_milestone )
+    compare = (milestone == "fixed" ? @measures[index].calc_ideal_weight(@gender) : @set_milestone.to_f )
     if compare == ""
       return ""
     elsif weight_variation(index).to_f >= 0 && @measures[index].weight < compare
@@ -126,4 +126,28 @@ class User
     end
   end
 
+  def self.by_last_month
+    now = Date.today
+    last_moth = (now - 30).strftime("%m/%d/%y")
+    # all users
+    users = self.all
+    last_users = users.map do |user|
+      days = user.measures.select { |m| m.date > last_moth }.length
+      { :name => user.name, :days => days }
+    end
+    last_users.sort { |a, b| b[:days] <=> a[:days]}
+  end
+    # method save_milestone
+  def self.save_milestone(milestone, email)
+    users = self.read
+    users = users.map do |user|
+      if user["email"] == email
+        user["set_milestone"] = milestone
+        user
+      else
+        user
+      end
+    end
+    self.save_data_to_json(users.to_json)
+  end
 end

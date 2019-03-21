@@ -1,5 +1,5 @@
     <a class="button is-primary" href="/">Add new measure</a>
-    <a class="button is-secundary" href="/">Set your Goal</a>
+    <a class="button is-secundary" href="/milestone">Set your Goal</a>
     <h1 class="title">Historic measures of <%= @current_user.name %></h1>
     <div class="buttons has-addons">
       <span class="button is-static" >Compare weight against: </span>
@@ -7,6 +7,8 @@
       <a class="button <%= milestone == "user" ? "is-focused" : ""%>" href="/view_measures?milestone=user">Set Goal</a>
       <% if milestone == "user" && @current_user.set_milestone == "" %>
         <%= "<span class='button is-static' >There is no Goal Set. Please Set your Goal.</span>" %>
+        <% elsif milestone == "user" && @current_user.set_milestone != "" %>
+        <%= "<span class='button is-static' >Your set goal is: #{@current_user.set_milestone} kg.</span>" %>
       <% end %>
     </div>
     
