@@ -49,3 +49,12 @@ p {
 p.subtitle {
   padding-top: 1rem;
 }
+
+.navbar-link figure img {
+  border-radius: 50%;
+  max-height: 2em;
+}
+
+.navbar-item .icon:only-child {
+  margin-right: 0.5rem;
+}
