@@ -16,7 +16,7 @@ end
 
 post '/register' do
   begin  
-    User::create(params)
+    User.create(params)
     session[:user_email] = params["email"]
     flash[:message] = "Successful user registration"
     flash[:message_type] = "is-success"
