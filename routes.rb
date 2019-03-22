@@ -5,8 +5,9 @@ require_relative 'models/User'
 require_relative 'controllers/generateCSV'
 require './helpers'
 
-
 enable :sessions
+
+#helper = helpers.new
 
 get '/' do
   protected!
@@ -55,15 +56,11 @@ get '/logout' do
 end
 
 get "/view_measures" do
-  if session[:user_email]
-    @current_user = User.find(session[:user_email])
+    protected!
     if params.empty?
         params["milestone"] = "fixed"
     end
       erb :view_measures, { :locals => params }
-  else
-    erb :register, :locals => { :hero => true }
-  end
 end
 
 get '/admin' do
@@ -85,32 +82,46 @@ end
 get '/admin/download' do
   # calling CSV generator
   fileCSV = generateCSV
-  # establishing data type and sharing
   content_type "application/csv"
   attachment "data.csv"
   fileCSV
 end
 
+#helper = helpers.new
 get '/milestone' do
-  if session[:user_email]
-    @current_user = User.find(session[:user_email])
+    protected!
     measure_last = @current_user.measures.first
     @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
+    set_flash("You Have modified your Goal Weight")
     erb :milestone
-  else
-  flash[:message] = "You are not login"
-  flash[:message_type] = "is-danger"
-  redirect "/login"
-  end
 end
 
 post "/save_weight_wanted" do
-  @current_user = User.find(session[:user_email])
-  User.save_milestone(params["weight_wanted"], @current_user.email)
-  redirect "/view_measures"
+  protected!
+  @current_user.save_milestone(params["weight_wanted"])
+  redirect "/view_measures?milestone=set_by_user"
+end
 
+
+get '/measure/new' do
+  protected!
+  #Feature 1 - "Restricted to one time per day, per user" IN PROGRESS
+  #@current_user_email = User.find(session[:user_email]).email
+  
+  erb :add_measures
+end
+
+post '/adding_measures' do
+  protected!
+  
+  new_measure = {
+    date: Time.now.strftime("%m/%d/%Y"),
+    weight: params["weight"].to_f,
+    height: params["height"].to_f
+  }
+  User.save_measure(new_measure, @current_user.email)
+  set_flash("Measures added!")
+  redirect "/view_measures"
 end
 
 set :port, 8000
-
-

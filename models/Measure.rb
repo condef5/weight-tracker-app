@@ -15,4 +15,9 @@ class Measure
       height - 100 - ( (height - 150) / 2.5 )
     end
   end
+
+  def calc_bmi
+    (@weight / (@height * @height)).round(2)
+  end
+
 end
