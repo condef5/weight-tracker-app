@@ -94,7 +94,7 @@ class User
     self.save_data_to_json(users.to_json)
   end
 
-  # Code common in self.by_last_week and self.by_last_month
+  # Grouping and filtering of active users by 7 days (last week) and 30 days (last month)
   def self.filtered_by_last(pointer)
     now = Date.today
     filter = (now - pointer).strftime("%m/%d/%y")
@@ -103,7 +103,6 @@ class User
       days = user.measures.select { |m| m.date >= filter }.length
       { :name => user.name, :days => days }
     end
-    puts " from Group and filter: #{last_users.sort { |a, b| b[:days] <=> a[:days]}}"
     last_users.sort { |a, b| b[:days] <=> a[:days]}
   end
 end
