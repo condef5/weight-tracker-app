@@ -1,1 +1,73 @@
-[{"email":"diego@mail.com","name":"Diego Torres","gender":"male","set_milestone":"56","password":"123","measures":[{"date":"03/01/19","weight":61,"height":1.71},{"date":"03/02/19","weight":60.36,"height":1.71},{"date":"03/03/19","weight":59.55,"height":1.71},{"date":"03/04/19","weight":60.02,"height":1.71},{"date":"03/05/19","weight":60.1,"height":1.72},{"date":"03/06/19","weight":59.58,"height":1.73},{"date":"03/07/19","weight":59.48,"height":1.72},{"date":"03/08/19","weight":58.52,"height":1.72},{"date":"03/09/19","weight":57.96,"height":1.72},{"date":"03/10/19","weight":57.23,"height":1.72},{"date":"03/11/19","weight":56.64,"height":1.72},{"date":"03/12/19","weight":57.07,"height":1.72},{"date":"03/13/19","weight":57.92,"height":1.72},{"date":"03/14/19","weight":58.2,"height":1.73},{"date":"03/15/19","weight":58.86,"height":1.73}]},{"email":"mayra@mail.com","name":"Mayra Navarro","gender":"female","set_milestone":"","measures":[{"date":"03/01/19","weight":68,"height":1.65},{"date":"03/02/19","weight":68.05,"height":1.65},{"date":"03/03/19","weight":67.74,"height":1.65},{"date":"03/04/19","weight":67.89,"height":1.66},{"date":"03/05/19","weight":67.21,"height":1.67},{"date":"03/06/19","weight":67.84,"height":1.67},{"date":"03/07/19","weight":67.33,"height":1.67},{"date":"03/08/19","weight":67.66,"height":1.66},{"date":"03/09/19","weight":68.59,"height":1.65},{"date":"03/10/19","weight":67.88,"height":1.65},{"date":"03/11/19","weight":67.35,"height":1.65},{"date":"03/12/19","weight":66.78,"height":1.65},{"date":"03/13/19","weight":66.79,"height":1.65},{"date":"03/14/19","weight":67.19,"height":1.64},{"date":"03/15/19","weight":66.24,"height":1.64}]},{"email":"carlos@mail.com","name":"Carlos Ayala","gender":"male","set_milestone":"","measures":[{"date":"03/01/19","weight":73,"height":1.74},{"date":"03/02/19","weight":72.37,"height":1.74},{"date":"03/03/19","weight":73.01,"height":1.74},{"date":"03/04/19","weight":72.86,"height":1.75},{"date":"03/05/19","weight":72.16,"height":1.75},{"date":"03/06/19","weight":73.11,"height":1.75},{"date":"03/07/19","weight":72.98,"height":1.75},{"date":"03/08/19","weight":72.96,"height":1.75},{"date":"03/09/19","weight":72.06,"height":1.74}]},{"name":"Pedro","email":"pedro@mail.com","password":"123","gender":"male","measures":[]}]
+[
+  {
+    "email": "diego@mail.com",
+    "name": "Diego Torres",
+    "gender": "male",
+    "set_milestone": "56",
+    "password": "123",
+    "measures": [
+      { "date": "03/01/19", "weight": 61, "height": 1.71 },
+      { "date": "03/02/19", "weight": 60.36, "height": 1.71 },
+      { "date": "03/03/19", "weight": 59.55, "height": 1.71 },
+      { "date": "03/04/19", "weight": 60.02, "height": 1.71 },
+      { "date": "03/05/19", "weight": 60.1, "height": 1.72 },
+      { "date": "03/06/19", "weight": 59.58, "height": 1.73 },
+      { "date": "03/07/19", "weight": 59.48, "height": 1.72 },
+      { "date": "03/08/19", "weight": 58.52, "height": 1.72 },
+      { "date": "03/09/19", "weight": 57.96, "height": 1.72 },
+      { "date": "03/10/19", "weight": 57.23, "height": 1.72 },
+      { "date": "03/11/19", "weight": 56.64, "height": 1.72 },
+      { "date": "03/12/19", "weight": 57.07, "height": 1.72 },
+      { "date": "03/13/19", "weight": 57.92, "height": 1.72 },
+      { "date": "03/14/19", "weight": 58.2, "height": 1.73 },
+      { "date": "03/15/19", "weight": 58.86, "height": 1.73 }
+    ]
+  },
+  {
+    "email": "mayra@mail.com",
+    "name": "Mayra Navarro",
+    "gender": "female",
+    "set_milestone": "",
+    "measures": [
+      { "date": "03/01/19", "weight": 68, "height": 1.65 },
+      { "date": "03/02/19", "weight": 68.05, "height": 1.65 },
+      { "date": "03/03/19", "weight": 67.74, "height": 1.65 },
+      { "date": "03/04/19", "weight": 67.89, "height": 1.66 },
+      { "date": "03/05/19", "weight": 67.21, "height": 1.67 },
+      { "date": "03/06/19", "weight": 67.84, "height": 1.67 },
+      { "date": "03/07/19", "weight": 67.33, "height": 1.67 },
+      { "date": "03/08/19", "weight": 67.66, "height": 1.66 },
+      { "date": "03/09/19", "weight": 68.59, "height": 1.65 },
+      { "date": "03/10/19", "weight": 67.88, "height": 1.65 },
+      { "date": "03/11/19", "weight": 67.35, "height": 1.65 },
+      { "date": "03/12/19", "weight": 66.78, "height": 1.65 },
+      { "date": "03/13/19", "weight": 66.79, "height": 1.65 },
+      { "date": "03/14/19", "weight": 67.19, "height": 1.64 },
+      { "date": "03/15/19", "weight": 66.24, "height": 1.64 }
+    ]
+  },
+  {
+    "email": "carlos@mail.com",
+    "name": "Carlos Ayala",
+    "gender": "male",
+    "set_milestone": "",
+    "measures": [
+      { "date": "03/01/19", "weight": 73, "height": 1.74 },
+      { "date": "03/02/19", "weight": 72.37, "height": 1.74 },
+      { "date": "03/03/19", "weight": 73.01, "height": 1.74 },
+      { "date": "03/04/19", "weight": 72.86, "height": 1.75 },
+      { "date": "03/05/19", "weight": 72.16, "height": 1.75 },
+      { "date": "03/06/19", "weight": 73.11, "height": 1.75 },
+      { "date": "03/07/19", "weight": 72.98, "height": 1.75 },
+      { "date": "03/08/19", "weight": 72.96, "height": 1.75 },
+      { "date": "03/09/19", "weight": 72.06, "height": 1.74 }
+    ]
+  },
+  {
+    "name": "Pedro",
+    "email": "pedro@mail.com",
+    "password": "123",
+    "gender": "male",
+    "measures": []
+  }
+]
