@@ -5,8 +5,9 @@ require_relative 'models/User'
 require_relative 'controllers/generateCSV'
 require './helpers'
 
-
 enable :sessions
+
+#helper = helpers.new
 
 get '/' do
   protected!
@@ -82,31 +83,24 @@ end
 
 get '/admin/download' do
   fileCSV = generateCSV
-  # puts fileCSV
   content_type "application/csv"
   attachment "data.csv"
   fileCSV
-  # send_data fileCSV, :filename => "data.csv", :type => 'Application/octet-stream'
 end
 
+#helper = helpers.new
 get '/milestone' do
-  if session[:user_email]
-    @current_user = User.find(session[:user_email])
+    protected!
     measure_last = @current_user.measures.first
     @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
+    set_flash("You Have modified your Goal Weight")
     erb :milestone
-  else
-  flash[:message] = "You are not login"
-  flash[:message_type] = "is-danger"
-  redirect "/login"
-  end
 end
 
 post "/save_weight_wanted" do
-  @current_user = User.find(session[:user_email])
-  User.save_milestone(params["weight_wanted"], @current_user.email)
-  redirect "/view_measures"
-
+  protected!
+  @current_user.save_milestone(params["weight_wanted"])
+  redirect "/view_measures?milestone=set_by_user"
 end
 
 set :port, 8000
