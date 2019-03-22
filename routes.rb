@@ -60,15 +60,6 @@ get "/view_measures" do
   end
   erb :view_measures, { :locals => params }
 end
-=begin
-get '/admin' do
-  @title = "Most active users by week"
-  @data = User.filtered_by_last(7)
-  erb :admin
-
-  redirect "/admin/week"
-end
-=end
 
 get '/admin' do
   if !params.key? "need" || params["need"] == "week"
@@ -77,24 +68,16 @@ get '/admin' do
   elsif params["need"] == "month"
     @title = "Most active users by month"
     @data = User.filtered_by_last(30)
-  elsif params["need"] == "download"
-    @title = "Most active users by month"
-    @data = User.filtered_by_last(7)
-    fileCSV = generateCSV
-    content_type "application/csv"
-    attachment "data.csv"
-    fileCSV
   end
   erb :admin
 end
 
-# get '/admin/download' do
-#   # calling CSV generator
-#   fileCSV = generateCSV
-#   content_type "application/csv"
-#   attachment "data.csv"
-#   fileCSV
-# end
+get '/admin/download' do
+  fileCSV = generateCSV
+  content_type "application/csv"
+  attachment "data.csv"
+  fileCSV
+end
 
 get '/milestone' do
   protected!
