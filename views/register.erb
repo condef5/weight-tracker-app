@@ -1,5 +1,4 @@
-<div class="columns is-mobile is-centered">
-  <div class="column is-one-third-desktop has-text-centered">
+<div class="column is-4 is-offset-4 has-text-centered">
   <h3 class="title has-text-grey">Register</h3>
   <div class="box">
     <figure class="avatar">
@@ -39,13 +38,17 @@
           />
         </div>
       </div>
-      <div class="field">
-        <div class="select" style="width: 100%;">
-          <select class="input" name="gender">
-            <option value="">Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+      <div class="field has-text-left">
+        <div class="control">
+          <label>Gender:</label>
+          <label class="radio">
+            <input type="radio" value="male" name="gender" required />
+            Male
+          </label>
+          <label class="radio">
+            <input type="radio" value="female" name="gender" required />
+            Female
+          </label>
         </div>
       </div>
 
@@ -54,6 +57,7 @@
       </button>
     </form>
   </div>
-  <p class="has-text-grey">You have account <a class="is-link" href="/login">Login</a></p>
-</div>
+  <p class="has-text-grey">
+    You have account <a class="is-link" href="/login">Login</a>
+  </p>
 </div>
