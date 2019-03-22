@@ -55,15 +55,11 @@ get '/logout' do
 end
 
 get "/view_measures" do
-  if session[:user_email]
-    @current_user = User.find(session[:user_email])
+    protected!
     if params.empty?
         params["milestone"] = "fixed"
     end
       erb :view_measures, { :locals => params }
-  else
-    erb :register, :locals => { :hero => true }
-  end
 end
 
 get "/admin" do
@@ -107,9 +103,10 @@ end
 post "/save_weight_wanted" do
   @current_user = User.find(session[:user_email])
   User.save_milestone(params["weight_wanted"], @current_user.email)
-  redirect "/view_measures"
+  redirect "/view_measures?milestone=set_by_user"
 
 end
+
 
 get '/measure/new' do
   protected!
@@ -133,5 +130,3 @@ post '/adding_measures' do
 end
 
 set :port, 8000
-
-
