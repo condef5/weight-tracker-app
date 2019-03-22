@@ -37,7 +37,7 @@ class User
     raise 'You need to enter a password' if user["password"] == ""
     raise 'User already existed' unless self.find(user["email"]).nil?
     users = self.read
-    users << user.merge({ measures: [] })
+    users << user.merge({ set_milestone: "", measures: [] })
     self.save_data_to_json(users.to_json)
   end
 
