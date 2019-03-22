@@ -44,7 +44,7 @@ post '/login' do
   rescue StandardError => e
     set_flash(e.message, :error)
     redirect '/login'
-  end 
+  end
 end
 
 get '/logout' do
@@ -62,23 +62,17 @@ get "/view_measures" do
 end
 
 get '/admin' do
-  redirect "/admin/week"
-end
-
-get '/admin/week' do
-  @title = "Most active users by week"
-  @data = User.filtered_by_last(7)
-  erb :admin
-end
-
-get '/admin/month' do
-  @title = "Most active users by month"
-  @data = User.filtered_by_last(30)
+  if !params.key? "need" || params["need"] == "week"
+    @title = "Most active users by week"
+    @data = User.filtered_by_last(7)
+  elsif params["need"] == "month"
+    @title = "Most active users by month"
+    @data = User.filtered_by_last(30)
+  end
   erb :admin
 end
 
 get '/admin/download' do
-  # calling CSV generator
   fileCSV = generateCSV
   content_type "application/csv"
   attachment "data.csv"
