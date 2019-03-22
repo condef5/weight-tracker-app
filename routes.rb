@@ -122,7 +122,7 @@ post '/adding_measures' do
   @current_user_email = User.find(session[:user_email]).email
   new_measure = {
     date: Time.now.strftime("%m/%d/%Y"),
-    weight: params["weight"].to_i,
+    weight: params["weight"].to_f,
     height: params["height"].to_f
   }
   User.save_measure(new_measure, @current_user_email)
