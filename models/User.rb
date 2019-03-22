@@ -84,13 +84,10 @@ class User
       self.relation(user["measures"])
     )
   end
-=begin
-  def self.by_last_week
-    self.group_and_filter(7)
-  end
+
 
   def height_variation(index)
-    return 0 if @measures[index +1].nil?
+    return 0 if @measures[index + 1].nil?
     last_height = @measures[index +1].height
     diff = (@measures[index].height - last_height).round(2)
     diff >= 0 ? "+#{diff}" : diff
@@ -123,22 +120,14 @@ class User
     end
   end
 
-  def self.by_last_month
-    self.group_and_filter(30)
-  end
-=end
     # method save_milestone
-  def self.save_milestone(milestone, email)
-    users = self.read
+  def save_milestone(milestone)
+    users = User.read
     users = users.map do |user|
-      if user["email"] == email
-        user["set_milestone"] = milestone
-        user
-      else
-        user
-      end
+      user["set_milestone"] = milestone if user["email"] == @email
+      user
     end
-    self.save_data_to_json(users.to_json)
+    User.save_data_to_json(users.to_json)
   end
 
   # Code common in self.by_last_week and self.by_last_month
