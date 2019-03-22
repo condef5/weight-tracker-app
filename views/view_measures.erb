@@ -4,10 +4,10 @@
     <div class="buttons has-addons">
       <span class="button is-static" >Compare weight against: </span>
       <a class="button <%= milestone == "fixed" ? "is-focused" : ""%>" href="/view_measures">Ideal weight</a>
-      <a class="button <%= milestone == "user" ? "is-focused" : ""%>" href="/view_measures?milestone=user">Set Goal</a>
-      <% if milestone == "user" && @current_user.set_milestone == "" %>
+      <a class="button <%= milestone == "set_by_user" ? "is-focused" : ""%>" href="/view_measures?milestone=set_by_user">Set Goal</a>
+      <% if milestone == "set_by_user" && @current_user.set_milestone == "" %>
         <span class='button is-static' >There is no Goal Set. Please Set your Goal.</span>
-        <% elsif milestone == "user" && @current_user.set_milestone != "" %>
+        <% elsif milestone == "set_by_user" && @current_user.set_milestone != "" %>
         <span class='button is-static' >Your set goal is: <%= @current_user.set_milestone %> kg.</span>
       <% end %>
     </div>

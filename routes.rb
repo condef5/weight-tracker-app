@@ -101,10 +101,8 @@ end
 post "/save_weight_wanted" do
   @current_user = User.find(session[:user_email])
   User.save_milestone(params["weight_wanted"], @current_user.email)
-  redirect "/view_measures?milestone=user"
+  redirect "/view_measures?milestone=set_by_user"
 
 end
 
 set :port, 8000
-
-
