@@ -56,15 +56,11 @@ get '/logout' do
 end
 
 get "/view_measures" do
-  if session[:user_email]
-    @current_user = User.find(session[:user_email])
+    protected!
     if params.empty?
         params["milestone"] = "fixed"
     end
       erb :view_measures, { :locals => params }
-  else
-    erb :register, :locals => { :hero => true }
-  end
 end
 
 get "/admin" do
@@ -72,12 +68,14 @@ get "/admin" do
 end
 
 get "/admin/week" do
-  @data = User.by_last_week
+  @title = "Most active users by week"
+  @data = User.filtered_by_last(7)
   erb :admin
 end
 
 get "/admin/month" do
-  @data = User.by_last_month
+  @title = "Most active users by month"
+  @data = User.filtered_by_last(30)
   erb :admin
 end
 
@@ -103,6 +101,26 @@ post "/save_weight_wanted" do
   redirect "/view_measures?milestone=set_by_user"
 end
 
+
+get '/measure/new' do
+  protected!
+  #Feature 1 - "Restricted to one time per day, per user" IN PROGRESS
+  #@current_user_email = User.find(session[:user_email]).email
+  
+  erb :add_measures
+end
+
+post '/adding_measures' do
+  protected!
+  
+  new_measure = {
+    date: Time.now.strftime("%m/%d/%Y"),
+    weight: params["weight"].to_f,
+    height: params["height"].to_f
+  }
+  User.save_measure(new_measure, @current_user.email)
+  set_flash("Measures added!")
+  redirect "/view_measures"
+end
+
 set :port, 8000
-
-

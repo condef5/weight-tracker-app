@@ -48,8 +48,13 @@ class User
     return user 
   end
 
-  def self.save_measure(measure)
-    
+  def self.save_measure(measure, email)
+    users = self.read
+    users = users.map do |user|
+      user["measures"] << measure if user["email"] == email
+      user
+    end
+    self.save_data_to_json(users.to_json)
   end
 
   def self.all
@@ -80,29 +85,41 @@ class User
     )
   end
 
-  def self.by_last_week
-    now = Date.today
-    last_week = (now - 7).strftime("%m/%d/%y")
-    # all users
-    users = self.all
-    last_users = users.map do |user|
-      days = user.measures.select { |m| m.date > last_week }.length
-      { :name => user.name, :days => days }
-    end
-    last_users.sort { |a,b| b[:days] <=> a[:days]}
+
+  def height_variation(index)
+    return 0 if @measures[index + 1].nil?
+    last_height = @measures[index +1].height
+    diff = (@measures[index].height - last_height).round(2)
+    diff >= 0 ? "+#{diff}" : diff
   end
 
-  def self.by_last_month
-    now = Date.today
-    last_moth = (now - 30).strftime("%m/%d/%y")
-    # all users
-    users = self.all
-    last_users = users.map do |user|
-      days = user.measures.select { |m| m.date > last_moth }.length
-      { :name => user.name, :days => days }
-    end
-    last_users.sort { |a, b| b[:days] <=> a[:days]}
+  def weight_variation(index)
+    return 0 if @measures[index +1].nil?
+    last_weight = @measures[index +1].weight
+    diff = (@measures[index].weight - last_weight).round(2)
+    diff >= 0 ? "+#{diff}" : diff
   end
+
+  def bmi_variation(index)
+    return 0 if @measures[index +1].nil?
+    last_bmi = @measures[index +1].calc_bmi
+    diff = (@measures[index].calc_bmi - last_bmi).round(2)
+    diff >= 0 ? "+#{diff}" : diff
+  end
+
+  def weight_color(index, milestone)
+    compare = (milestone == "fixed" ? @measures[index].calc_ideal_weight(@gender) : @set_milestone.to_f )
+    if compare == ""
+      return ""
+    elsif weight_variation(index).to_f >= 0 && @measures[index].weight < compare
+      "yellowgreen"
+    elsif weight_variation(index).to_f < 0 && @measures[index].weight > compare
+      "yellowgreen"
+    else
+      "salmon"
+    end
+  end
+
     # method save_milestone
   def save_milestone(milestone)
     users = User.read
@@ -111,5 +128,18 @@ class User
       user
     end
     User.save_data_to_json(users.to_json)
+  end
+
+  # Code common in self.by_last_week and self.by_last_month
+  def self.filtered_by_last(pointer)
+    now = Date.today
+    filter = (now - pointer).strftime("%m/%d/%y")
+    users = self.all
+    last_users = users.map do |user|
+      days = user.measures.select { |m| m.date >= filter }.length
+      { :name => user.name, :days => days }
+    end
+    puts " from Group and filter: #{last_users.sort { |a, b| b[:days] <=> a[:days]}}"
+    last_users.sort { |a, b| b[:days] <=> a[:days]}
   end
 end
