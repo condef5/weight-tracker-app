@@ -109,6 +109,27 @@ post "/save_weight_wanted" do
 
 end
 
+get '/measure/new' do
+  protected!
+  #Feature 1 - "Restricted to one time per day, per user" IN PROGRESS
+  #@current_user_email = User.find(session[:user_email]).email
+  
+  erb :add_measures
+end
+
+post '/adding_measures' do
+  protected!
+  
+  new_measure = {
+    date: Time.now.strftime("%m/%d/%Y"),
+    weight: params["weight"].to_f,
+    height: params["height"].to_f
+  }
+  User.save_measure(new_measure, @current_user.email)
+  set_flash("Measures added!")
+  redirect "/view_measures"
+end
+
 set :port, 8000
 
 

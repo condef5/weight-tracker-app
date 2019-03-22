@@ -48,8 +48,13 @@ class User
     return user 
   end
 
-  def self.save_measure(measure)
-    
+  def self.save_measure(measure, email)
+    users = self.read
+    users = users.map do |user|
+      user["measures"] << measure if user["email"] == email
+      user
+    end
+    self.save_data_to_json(users.to_json)
   end
 
   def self.all
