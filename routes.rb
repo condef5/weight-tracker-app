@@ -71,12 +71,14 @@ get "/admin" do
 end
 
 get "/admin/week" do
-  @data = User.by_last_week
+  @title = "Most active users by week"
+  @data = User.filtered_by_last(7)
   erb :admin
 end
 
 get "/admin/month" do
-  @data = User.by_last_month
+  @title = "Most active users by month"
+  @data = User.filtered_by_last(30)
   erb :admin
 end
 

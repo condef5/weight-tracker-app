@@ -84,30 +84,15 @@ class User
       self.relation(user["measures"])
     )
   end
-
+=begin
   def self.by_last_week
-    now = Date.today
-    last_week = (now - 7).strftime("%m/%d/%y")
-    # all users
-    users = self.all
-    last_users = users.map do |user|
-      days = user.measures.select { |m| m.date > last_week }.length
-      { :name => user.name, :days => days }
-    end
-    last_users.sort { |a,b| b[:days] <=> a[:days]}
+    self.group_and_filter(7)
   end
 
   def self.by_last_month
-    now = Date.today
-    last_moth = (now - 30).strftime("%m/%d/%y")
-    # all users
-    users = self.all
-    last_users = users.map do |user|
-      days = user.measures.select { |m| m.date > last_moth }.length
-      { :name => user.name, :days => days }
-    end
-    last_users.sort { |a, b| b[:days] <=> a[:days]}
+    self.group_and_filter(30)
   end
+=end
     # method save_milestone
   def self.save_milestone(milestone, email)
     users = self.read
@@ -120,5 +105,18 @@ class User
       end
     end
     self.save_data_to_json(users.to_json)
+  end
+
+  # Code common in self.by_last_week and self.by_last_month
+  def self.filtered_by_last(pointer)
+    now = Date.today
+    filter = (now - pointer).strftime("%m/%d/%y")
+    users = self.all
+    last_users = users.map do |user|
+      days = user.measures.select { |m| m.date >= filter }.length
+      { :name => user.name, :days => days }
+    end
+    puts " from Group and filter: #{last_users.sort { |a, b| b[:days] <=> a[:days]}}"
+    last_users.sort { |a, b| b[:days] <=> a[:days]}
   end
 end
