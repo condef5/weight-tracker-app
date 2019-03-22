@@ -7,8 +7,6 @@ require './helpers'
 
 enable :sessions
 
-#helper = helpers.new
-
 get '/' do
   protected!
   if params.empty?
@@ -56,11 +54,11 @@ get '/logout' do
 end
 
 get "/view_measures" do
-    protected!
-    if params.empty?
-        params["milestone"] = "fixed"
-    end
-      erb :view_measures, { :locals => params }
+  protected!
+  if params.empty?
+    params["milestone"] = "fixed"
+  end
+  erb :view_measures, { :locals => params }
 end
 
 get "/admin" do
@@ -86,13 +84,12 @@ get '/admin/download' do
   fileCSV
 end
 
-#helper = helpers.new
 get '/milestone' do
-    protected!
-    measure_last = @current_user.measures.first
-    @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
-    set_flash("You Have modified your Goal Weight")
-    erb :milestone
+  protected!
+  measure_last = @current_user.measures.first
+  @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
+  set_flash("You Have modified your Goal Weight")
+  erb :milestone
 end
 
 post "/save_weight_wanted" do
@@ -112,7 +109,6 @@ end
 
 post '/adding_measures' do
   protected!
-  
   new_measure = {
     date: Time.now.strftime("%m/%d/%Y"),
     weight: params["weight"].to_f,

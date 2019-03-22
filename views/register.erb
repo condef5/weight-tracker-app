@@ -38,13 +38,17 @@
           />
         </div>
       </div>
-      <div class="field">
-        <div class="select" style="width: 100%;">
-          <select class="input" name="gender">
-            <option value="">Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+      <div class="field has-text-left">
+        <div class="control">
+          <label>Gender:</label>
+          <label class="radio">
+            <input type="radio" value="male" name="gender" required />
+            Male
+          </label>
+          <label class="radio">
+            <input type="radio" value="female" name="gender" required />
+            Female
+          </label>
         </div>
       </div>
 
@@ -53,5 +57,7 @@
       </button>
     </form>
   </div>
-  <p class="has-text-grey">You have account <a class="is-link" href="/login">Login</a></p>
+  <p class="has-text-grey">
+    You have account <a class="is-link" href="/login">Login</a>
+  </p>
 </div>
