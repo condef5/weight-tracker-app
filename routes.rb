@@ -61,23 +61,24 @@ get "/view_measures" do
   erb :view_measures, { :locals => params }
 end
 
-get "/admin" do
+get '/admin' do
   redirect "/admin/week"
 end
 
-get "/admin/week" do
+get '/admin/week' do
   @title = "Most active users by week"
   @data = User.filtered_by_last(7)
   erb :admin
 end
 
-get "/admin/month" do
+get '/admin/month' do
   @title = "Most active users by month"
   @data = User.filtered_by_last(30)
   erb :admin
 end
 
 get '/admin/download' do
+  # calling CSV generator
   fileCSV = generateCSV
   content_type "application/csv"
   attachment "data.csv"

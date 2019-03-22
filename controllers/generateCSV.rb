@@ -8,34 +8,32 @@ def generateCSV
   # name archive by date
   filename = Time.now.strftime("%Y%m%d")
 
-  # get json and parse it
-  # my_hashes = JSON.parse(File.open("data.json").read)
-
   # using class User to parse the Json file
   users = User.all
-
-  # get all keys even the ones in nested array
-  # cell_title = my_hashes.first.keys.first(4) + my_hashes.first["measures"].first.keys
 
   # setting column titles for CSV file
   cell_title = ["email", "name", "genre", "set_milestone", "date", "height", "weight"]
 
   # open CSV file
-  # CSV.open("./public/#{filename}.csv", "w") do |csv|
   CSV.generate do |csv|
     # write completed column names
     csv << cell_title
   # using main defined classes
     users.each do |userdata|
-      userdata.measures.each do |measure|
-        temp = []
-        temp = [userdata.email, userdata.name, userdata.gender, userdata.set_milestone, measure.date, measure.height, measure.weight]
-
-  # writing rows of data in CSV
-        csv << temp
+      temp_user = []
+      temp_user = [userdata.email,userdata.name, userdata.gender, userdata.set_milestone]
+      # Check if userdata.measures is empty, if it is, set dummy data to show user
+      if userdata.measures.empty?
+        csv << temp_user + [0,0,0]
+      else
+        userdata.measures.each do |measure|
+          temp_measure = []
+          temp_measure = [measure.date, measure.height, measure.weight]
+    # writing rows of data in CSV
+          csv << temp_user + temp_measure
+        end
       end
     end
 
   end
 end
-# puts "Data CSV: \n#{generateCSV}"

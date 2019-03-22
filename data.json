@@ -23,6 +23,14 @@
     ]
   },
   {
+    "name": "admin",
+    "email": "admin@mail.com",
+    "password": "123",
+    "gender": "male",
+    "set_milestone": "",
+    "measures": []
+  },
+  {
     "name": "Mayra Navarro",
     "email": "mayra@mail.com",
     "password": "123",
