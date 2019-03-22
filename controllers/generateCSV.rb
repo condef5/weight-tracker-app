@@ -27,12 +27,18 @@ def generateCSV
     csv << cell_title
   # using main defined classes
     users.each do |userdata|
-      userdata.measures.each do |measure|
-        temp = []
-        temp = [userdata.email, userdata.name, userdata.gender, userdata.set_milestone, measure.date, measure.height, measure.weight]
-
-  # writing rows of data in CSV
-        csv << temp
+      temp_user = []
+      temp_user = [userdata.email,userdata.name, userdata.gender, userdata.set_milestone]
+      # Check if userdata.measures is empty, if it is, set dummy data to show user
+      if userdata.measures.empty?
+        csv << temp_user + [0,0,0]
+      else
+        userdata.measures.each do |measure|
+          temp_measure = []
+          temp_measure = [measure.date, measure.height, measure.weight]
+    # writing rows of data in CSV
+          csv << temp_user + temp_measure
+        end
       end
     end
 

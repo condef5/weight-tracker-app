@@ -79,16 +79,8 @@ class User
       self.relation(user["measures"])
     )
   end
-=begin
-  def self.by_last_week
-    self.group_and_filter(7)
-  end
 
-  def self.by_last_month
-    self.group_and_filter(30)
-  end
-=end
-    # method save_milestone
+  # method save_milestone
   def self.save_milestone(milestone, email)
     users = self.read
     users = users.map do |user|
