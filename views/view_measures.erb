@@ -6,9 +6,9 @@
       <a class="button <%= milestone == "fixed" ? "is-focused" : ""%>" href="/view_measures">Ideal weight</a>
       <a class="button <%= milestone == "user" ? "is-focused" : ""%>" href="/view_measures?milestone=user">Set Goal</a>
       <% if milestone == "user" && @current_user.set_milestone == "" %>
-        <%= "<span class='button is-static' >There is no Goal Set. Please Set your Goal.</span>" %>
+        <span class='button is-static' >There is no Goal Set. Please Set your Goal.</span>
         <% elsif milestone == "user" && @current_user.set_milestone != "" %>
-        <%= "<span class='button is-static' >Your set goal is: #{@current_user.set_milestone} kg.</span>" %>
+        <span class='button is-static' >Your set goal is: <%= @current_user.set_milestone %> kg.</span>
       <% end %>
     </div>
     
