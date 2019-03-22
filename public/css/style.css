@@ -2,7 +2,7 @@
 
 html,
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 #content {
@@ -76,4 +76,9 @@ a.is-link {
   background: linear-gradient(#eee, #7a7a7a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.disable-button {
+  pointer-events: none;
+  cursor: default;
 }
