@@ -86,11 +86,16 @@ get '/admin/download' do
 end
 
 get '/milestone' do
-  protected!
-  measure_last = @current_user.measures.first
-  @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
-  set_flash("You Have modified your Goal Weight")
-  erb :milestone
+  begin
+    protected!
+    measure_last = @current_user.measures.first
+    @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
+    set_flash("You Have modified your Goal Weight")
+    erb :milestone
+  rescue 
+    @ideal_weight="Cannot be calculated : 0"
+    erb :milestone
+  end 
 end
 
 post "/save_weight_wanted" do
