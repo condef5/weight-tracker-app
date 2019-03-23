@@ -1,5 +1,4 @@
 require 'json'
-require 'date'
 require_relative 'Measure.rb'
 
 class User
@@ -136,8 +135,9 @@ class User
 
   # Grouping and filtering of active users by 7 days (last week) and 30 days (last month)
   def self.filtered_by_last(pointer)
-    now = Date.today
-    filter = (now - pointer).strftime("%m/%d/%Y")
+    now = Time.now
+    # added *24 * 60 * 60 to calculate days, not seconds
+    filter = (now - (pointer * 24 * 60 * 60)).strftime("%m/%d/%Y")
     users = self.all
     last_users = users.map do |user|
       days = user.measures.select { |m| m.date >= filter }.length
