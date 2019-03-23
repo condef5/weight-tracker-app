@@ -58,7 +58,9 @@ get "/view_measures" do
   if params.empty?
     params["milestone"] = "fixed"
   end
+  
   erb :view_measures, { :locals => params }
+
 end
 
 get '/admin' do
@@ -101,9 +103,6 @@ end
 
 get '/measure/new' do
   protected!
-  #Feature 1 - "Restricted to one time per day, per user" IN PROGRESS
-  #@current_user_email = User.find(session[:user_email]).email
-  
   erb :add_measures
 end
 
