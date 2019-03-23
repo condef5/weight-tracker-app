@@ -11,9 +11,11 @@
           max="200.00"
           placeholder="0.00 Kg min 1.50"
           name="weight"
-          <% if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
-          value =<%= @current_user.measures.first.weight.to_s + " disabled" %>
-          <%end%>
+          <% while !(@current_user.measures.empty?) do %>
+            <% if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+            value =<%= @current_user.measures.first.weight.to_s + " disabled" %>
+            <%end%>
+		      <%end%>
           style="cursor :default"
           required
         />
@@ -32,9 +34,11 @@
           max="200.00"
           placeholder="0.00 Meters min 0.30"
           name="height"
-           <% if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
-          value =<%= @current_user.measures.first.height.to_s + " disabled" %>
-          <%end%>
+          <% while !(@current_user.measures.empty?) do %>
+            <% if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+            value =<%= @current_user.measures.first.height.to_s + " disabled" %>
+            <%end%>
+		      <%end%>
           style="cursor :default"
           required
         />
@@ -48,7 +52,9 @@
       class="button is-link" 
       type="submit" 
       value="guardar"
-      <%= "disabled" if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+      <% while !(@current_user.measures.empty?) do %>
+        <%= "disabled" if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+      <%end%>
       style="cursor :default"
       >Submit
       </button>
