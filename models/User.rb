@@ -31,7 +31,6 @@ class User
     end
   end
   
-
   def self.create(user)
     raise 'You need to enter a gender' if user["gender"] == ""
     raise 'You need to enter a password' if user["password"] == ""
@@ -120,7 +119,12 @@ class User
     end
   end
 
-    # method save_milestone
+  def check_last_measure
+    now = Time.now.strftime("%m/%d/%Y")
+    @measures.detect { |measure| measure.date == now}
+  end
+
+  # method save_milestone
   def save_milestone(milestone)
     users = User.read
     users = users.map do |user|
@@ -142,11 +146,7 @@ class User
     last_users.sort { |a, b| b[:days] <=> a[:days]}
   end
 
-
-
-#  def self.change_file(name)
-#    @@file = name
-#  end
-
-
+  def self.change_file(name)
+    @@file = name
+  end
 end

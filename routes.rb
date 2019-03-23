@@ -103,6 +103,10 @@ end
 
 get '/measure/new' do
   protected!
+  if @current_user.check_last_measure
+    set_flash("You have already registered your measurements", :error)
+    redirect "/"
+  end
   erb :add_measures
 end
 
