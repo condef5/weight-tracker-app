@@ -5,9 +5,6 @@ require "json"
 require_relative "../models/User"
 
 def generateCSV
-  # name archive by date
-  filename = Time.now.strftime("%Y%m%d")
-
   # using class User to parse the Json file
   users = User.all
 
