@@ -39,7 +39,7 @@ post '/login' do
   begin
     user = User.find_login(params["email"], params["password"])
     session[:user_email] = params["email"]
-    set_flash("Successful user registration")
+    set_flash("Successful user login")
     redirect '/'
   rescue StandardError => e
     set_flash(e.message, :error)
@@ -64,6 +64,7 @@ get "/view_measures" do
 end
 
 get '/admin' do
+  authorized_admin!
   if !params.key? "need" || params["need"] == "week"
     @title = "Most active users by week"
     @data = User.filtered_by_last(7)
@@ -75,9 +76,11 @@ get '/admin' do
 end
 
 get '/admin/download' do
+  authorized_admin!
+  filename = Time.now.strftime("%Y%m%d")
   fileCSV = generateCSV
   content_type "application/csv"
-  attachment "data.csv"
+  attachment "#{filename}.csv"
   fileCSV
 end
 

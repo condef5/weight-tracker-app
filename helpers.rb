@@ -13,6 +13,7 @@ helpers do
   # This method protects the routes if the user is not logged in
   def protected!
     redirect '/login' if current_user.nil?
+    redirect '/admin' if current_user.name == "admin"
   end
 
   # This method pass a message and status to show them to the user
@@ -23,5 +24,9 @@ helpers do
     }
     flash[:message] = message
     flash[:message_type] = type[status]
+  end
+
+  def authorized_admin!
+    redirect "/" if current_user.nil? || current_user.name != "admin"
   end
 end
