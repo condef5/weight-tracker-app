@@ -20,6 +20,7 @@ def generateCSV
     csv << cell_title
   # using main defined classes
     users.each do |userdata|
+      next if userdata.name == "admin"
       temp_user = []
       temp_user = [userdata.email,userdata.name, userdata.gender, userdata.set_milestone]
       # Check if userdata.measures is empty, if it is, set dummy data to show user
