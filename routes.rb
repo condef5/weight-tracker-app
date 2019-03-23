@@ -64,6 +64,7 @@ get "/view_measures" do
 end
 
 get '/admin' do
+  authorized_admin!
   if !params.key? "need" || params["need"] == "week"
     @title = "Most active users by week"
     @data = User.filtered_by_last(7)
@@ -75,6 +76,7 @@ get '/admin' do
 end
 
 get '/admin/download' do
+  authorized_admin!
   fileCSV = generateCSV
   content_type "application/csv"
   attachment "data.csv"
