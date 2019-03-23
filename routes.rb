@@ -72,8 +72,6 @@ get '/admin' do
     @title = "Most active users by month"
     @data = User.filtered_by_last(30)
   end
-  puts "Por 7 días: #{User.filtered_by_last(7)}"
-  puts "Por 30 días: #{User.filtered_by_last(30)}"
   erb :admin
 end
 
