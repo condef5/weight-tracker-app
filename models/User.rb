@@ -21,7 +21,7 @@ class User
   end
   
   def self.save_data_to_json(data)
-    File.write('data.json', data)
+    File.write(@@file, data)
   end
 
   def self.relation(measures)
@@ -141,4 +141,9 @@ class User
     end
     last_users.sort { |a, b| b[:days] <=> a[:days]}
   end
+
+  def self.change_file(name)
+    @@file = name
+  end
+
 end
