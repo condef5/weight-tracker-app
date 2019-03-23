@@ -76,8 +76,8 @@ get '/admin' do
 end
 
 get '/admin/download' do
-  filename = Time.now.strftime("%Y%m%d")
   authorized_admin!
+  filename = Time.now.strftime("%Y%m%d")
   fileCSV = generateCSV
   content_type "application/csv"
   attachment "#{filename}.csv"
