@@ -39,7 +39,7 @@ post '/login' do
   begin
     user = User.find_login(params["email"], params["password"])
     session[:user_email] = params["email"]
-    set_flash("Successful user registration")
+    set_flash("Successful user login")
     redirect '/'
   rescue StandardError => e
     set_flash(e.message, :error)
@@ -72,14 +72,17 @@ get '/admin' do
     @title = "Most active users by month"
     @data = User.filtered_by_last(30)
   end
+  puts "Por 7 días: #{User.filtered_by_last(7)}"
+  puts "Por 30 días: #{User.filtered_by_last(30)}"
   erb :admin
 end
 
 get '/admin/download' do
+  filename = Time.now.strftime("%Y%m%d")
   authorized_admin!
   fileCSV = generateCSV
   content_type "application/csv"
-  attachment "data.csv"
+  attachment "#{filename}.csv"
   fileCSV
 end
 
