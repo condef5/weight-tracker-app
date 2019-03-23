@@ -6,11 +6,16 @@
         <input
           class="input"
           type="number"
-          min="0.00"
+          min="1.50"
           step="0.01"
           max="200.00"
-          placeholder="Kg"
+          placeholder="0.00 Kg min 1.50"
           name="weight"
+          <% if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+          value =<%= @current_user.measures.first.weight.to_s + " disabled" %>
+          <%end%>
+          style="cursor :default"
+          required
         />
       </div>
     </div>
@@ -22,11 +27,16 @@
         <input
           class="input"
           type="number"
-          min="0.00"
+          min="0.30"
           step="0.01"
           max="200.00"
-          placeholder="0.00 Meters"
+          placeholder="0.00 Meters min 0.30"
           name="height"
+           <% if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+          value =<%= @current_user.measures.first.height.to_s + " disabled" %>
+          <%end%>
+          style="cursor :default"
+          required
         />
       </div>
     </div>
@@ -34,12 +44,21 @@
 
   <div class="field is-grouped">
     <div class="control">
-      <button class="button is-link" type="submit" value="guardar">
-        Submit
+      <button 
+      class="button is-link" 
+      type="submit" 
+      value="guardar"
+      <%= "disabled" if (Time.now.strftime('%m/%d/%Y') == @current_user.measures.first.date.to_s) %>
+      style="cursor :default"
+      >Submit
       </button>
     </div>
     <div class="control">
-      <button class="button is-text" type="reset" value="limpiar">Clear</button>
+      <button 
+      class="button is-text" 
+      type="reset" 
+      value="limpiar"
+      >Clear</button>
     </div>
   </div>
 </form>

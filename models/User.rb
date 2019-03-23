@@ -126,7 +126,7 @@ class User
     users = users.map do |user|
       user["set_milestone"] = milestone if user["email"] == @email
       user
-    end
+    end 
     User.save_data_to_json(users.to_json)
   end
 
@@ -141,4 +141,5 @@ class User
     end
     last_users.sort { |a, b| b[:days] <=> a[:days]}
   end
+
 end
