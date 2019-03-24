@@ -32,7 +32,7 @@ class User
   
   def self.create(user)
     raise 'You need to enter a gender' if user["gender"] == ""
-    raise 'You need to enter a password' if user["password"] == ""
+    raise 'You need to enter a password' if user["password"] == "" || user["password"].nil? 
     raise 'User already existed' unless self.find(user["email"]).nil?
     users = self.read
     users << user.merge({ set_milestone: "", measures: [] })
@@ -83,6 +83,11 @@ class User
     )
   end
 
+  def self.delete(email)
+    users = self.read
+    users = users.select { |user| user["email"] != email }  
+    self.save_data_to_json(users.to_json)
+  end
 
   def height_variation(index)
     return 0 if @measures[index + 1].nil?

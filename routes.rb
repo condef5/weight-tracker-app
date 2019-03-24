@@ -10,7 +10,7 @@ enable :sessions
 get '/' do
   protected!
   if params.empty?
-      params["milestone"] = "fixed"
+    params["milestone"] = "fixed"
   end
   erb :view_measures, { :locals => params }
 end
