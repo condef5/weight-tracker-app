@@ -20,16 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // switch
   const switchInput = document.querySelector('.switch__input');
-  switchInput.addEventListener('change', () => {
-    let url = '';
-    if (switchInput.checked) {
-      url = document.querySelector('.switch__left').href;
-    } else {
-      url = document.querySelector('.switch__right').href;
-    }
-    // Se agrega este delay para que coincida con la transicion de css de 0.1
-    setTimeout(() => {
-      window.location = url;
-    }, 100);
-  });
+  if (switchInput) {
+    switchInput.addEventListener('change', () => {
+      let url = '';
+      if (switchInput.checked) {
+        url = document.querySelector('.switch__left').href;
+      } else {
+        url = document.querySelector('.switch__right').href;
+      }
+      // Se agrega este delay para que coincida con la transicion de css de 0.1
+      setTimeout(() => {
+        window.location = url;
+      }, 100);
+    });
+  }
 });
