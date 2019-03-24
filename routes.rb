@@ -53,23 +53,13 @@ get '/logout' do
   redirect '/'
 end
 
-get "/view_measures" do
-  protected!
-  if params.empty?
-    params["milestone"] = "fixed"
-  end
-  
-  erb :view_measures, { :locals => params }
-
-end
-
 get '/admin' do
   authorized_admin!
   if !params.key? "need" || params["need"] == "week"
-    @title = "Most active users by week"
+    @by_last = "week"
     @data = User.filtered_by_last(7)
   elsif params["need"] == "month"
-    @title = "Most active users by month"
+    @by_last = "month"
     @data = User.filtered_by_last(30)
   end
   erb :admin
@@ -100,7 +90,7 @@ end
 post "/save_weight_wanted" do
   protected!
   @current_user.save_milestone(params["weight_wanted"])
-  redirect "/view_measures?milestone=set_by_user"
+  redirect "/?milestone=set_by_user"
 end
 
 
@@ -122,7 +112,7 @@ post '/adding_measures' do
   }
   User.save_measure(new_measure, @current_user.email)
   set_flash("Measures added!")
-  redirect "/view_measures"
+  redirect "/"
 end
 
 set :port, 8000
