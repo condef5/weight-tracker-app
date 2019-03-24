@@ -1,19 +1,37 @@
-
-<a class="button is-primary" href="/measure/new">Add new measure</a>
-<a class="button is-secundary" href="/milestone" >Set your Goal</a>
-<h1 class="title">Historic measures of <%= @current_user.name %></h1>
-<div class="buttons has-addons">
-<span class="button is-static" >Compare weight against: </span>
-<a class="button <%= milestone == "fixed" ? "is-focused" : ""%>" href="/view_measures">Ideal weight</a>
-<a class="button <%= milestone == "set_by_user" ? "is-focused" : ""%>" href="/view_measures?milestone=set_by_user">Set Goal</a>
-<% if milestone == "set_by_user" && @current_user.set_milestone == "" %>
-  <span class='button is-static' >There is no Goal Set. Please Set your Goal.</span>
-  <% elsif milestone == "set_by_user" && @current_user.set_milestone != "" %>
-  <span class='button is-static' >Your set goal is: <%= @current_user.set_milestone %> kg.</span>
-<% end %>
+<div>
+  <h1 class="title has-text-weight-normal page-header">
+    Historic measures of <%= @current_user.name %>
+  </h1>
+  <div class="columns header-custom">
+    <div
+      class="switch <%= milestone == 'fixed' ? 'checked' : '' %> column is-6"
+    >
+      <a href="/" class="switch__left">Ideal Weight</a>
+      <label class="switch__label">
+        <input type="checkbox" class="switch__input" value="Me" <%= milestone ==
+        'fixed' ? 'checked' : '' %> />
+        <div></div>
+      </label>
+      <a href="/?milestone=set_by_user" class="switch__right">Setted Goal </a>
+      
+      <!-- Set goal -->
+      <% if milestone == "set_by_user" && @current_user.set_milestone == "" %>
+        <span class="tag">Not goal set. Please set your Goal.</span>
+      <% elsif milestone == "set_by_user" && @current_user.set_milestone != "" %>
+        <div class="tags has-addons">
+          <span class="tag">Your goal</span>
+          <span class="tag is-success"><%= @current_user.set_milestone %> kg.</span>
+        </div>
+      <% end %>
+    </div>
+    <div class="column is-6 has-text-right">
+      <a class="button is-info" href="/measure/new">Add new measure</a>
+      <a class="button is-success" href="/milestone">Set your Goal</a>
+    </div>
+  </div>
 </div>
 
-<table class="table">
+<table class="table is-fullwidth">
   <thead>
     <tr>
       <th>Date</th>
@@ -34,7 +52,11 @@
       <td><%= x.height %></td>
       <td><%= @current_user.height_variation(index) %></td>
       <td><%= x.weight %></td>
-      <td style="background-color:<%= @current_user.weight_color(index, milestone) %> "><%= @current_user.weight_variation(index) %></td>
+      <td
+        style="background-color:<%= @current_user.weight_color(index, milestone) %> "
+      >
+        <%= @current_user.weight_variation(index) %>
+      </td>
       <td><%= x.calc_bmi %></td>
       <td><%= @current_user.bmi_variation(index) %></td>
       <td><%= x.calc_ideal_weight(@current_user.gender) %></td>

@@ -1,20 +1,22 @@
-<section class="hero">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Weight Tracker App
-      </h1>
-      <h2 class="subtitle">
-        <%= @title %>
-      </h2>
+<div>
+  <h1 class="title has-text-weight-normal page-header">
+    Most active users by <%= @by_last %>
+  </h1>
+  <div class="columns header-custom">
+    <div
+      class="switch <%= @by_last == 'week' ? 'checked' : '' %> column is-6"
+    >
+      <a href="/admin" class="switch__left">Last week</a>
+      <label class="switch__label">
+        <input type="checkbox" class="switch__input" value="Me" <%= @by_last == 'week' ? 'checked' : '' %> />
+        <div></div>
+      </label>
+      <a href="/admin?need=month" class="switch__right">Last month </a>
+    </div>
+    <div class="column is-6 has-text-right">
+      <a href="/admin/download" class="button is-info is-normal">CSV Export</a>
     </div>
   </div>
-</section>
-<div class="field is-grouped">
-  <a class="button is-normal" href="/admin">last week</a>
-  <a class="button is-normal" href="/admin?need=month">last month</a>
-  <a href="/admin/download" class="button is-info is-normal">CSV Export</a>
-  <span style="clear:both"></span>
 </div>
 
 <table class="table is-hoverable is-fullwidth">
