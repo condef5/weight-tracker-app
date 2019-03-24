@@ -93,7 +93,7 @@ post "/save_weight_wanted" do
   redirect "/?milestone=set_by_user"
 end
 
-
+# view to add your day's measures
 get '/measure/new' do
   protected!
   if @current_user.check_last_measure
@@ -102,7 +102,7 @@ get '/measure/new' do
   end
   erb :add_measures
 end
-
+# redirecting to "view_measures" view
 post '/adding_measures' do
   protected!
   new_measure = {
@@ -113,6 +113,12 @@ post '/adding_measures' do
   User.save_measure(new_measure, @current_user.email)
   set_flash("Measures added!")
   redirect "/"
+end
+
+# 404 Error!
+not_found do
+  status 404
+  erb :oops
 end
 
 set :port, 8000
