@@ -128,6 +128,10 @@ class User
     @measures.detect { |measure| measure.date == now}
   end
 
+  def ideal_weight
+    @measures.first.calc_ideal_weight(@gender)
+  end
+
   # method save_milestone
   def save_milestone(milestone)
     users = User.read
