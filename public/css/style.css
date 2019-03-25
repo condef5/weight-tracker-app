@@ -107,6 +107,10 @@ a.is-link {
   margin-left: 10px;
 }
 
+.tags:not(:last-child) {
+  margin-bottom: 0rem;
+}
+
 /* switch */
 .switch {
   display: flex;
