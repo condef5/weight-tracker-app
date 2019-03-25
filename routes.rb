@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader' # reload server
 require 'sinatra/flash'
 require_relative 'models/User'
-require_relative 'controllers/generateCSV'
+require_relative 'methods'
 require './helpers'
 
 enable :sessions
@@ -68,10 +68,10 @@ end
 get '/admin/download' do
   authorized_admin!
   filename = Time.now.strftime("%Y%m%d")
-  fileCSV = generateCSV
+  # file_csv = generate_csv(User.all)
   content_type "application/csv"
   attachment "#{filename}.csv"
-  fileCSV
+  file_csv = generate_csv(User.all)
 end
 
 get '/milestone' do
