@@ -19,5 +19,17 @@ class Measure
   def calc_bmi
     (@weight / (@height * @height)).round(2)
   end
-
+  
+  def status_label_bmi
+    case calc_bmi
+    when 0..18.50
+      return ["Insufficient", "is-dark"]
+    when 18.50..24.90
+      return ["Normal", "is-success"]
+    when 24.90..29.00
+      return ["Fat", "is-warning"]
+    else
+      return ["Obese", "is-danger"]
+    end
+  end
 end

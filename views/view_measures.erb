@@ -4,7 +4,7 @@
   </h1>
   <div class="columns header-custom">
     <div
-      class="switch <%= milestone == 'fixed' ? 'checked' : '' %> column is-6"
+      class="switch <%= milestone == 'fixed' ? 'checked' : '' %> column is-7"
     >
       <a href="/" class="switch__left">Ideal Weight</a>
       <label class="switch__label">
@@ -15,7 +15,7 @@
       <a href="/?milestone=set_by_user" class="switch__right">Setted Goal </a>
       
       <!-- Set goal -->
-      <%if milestone == "fixed" %>
+      <%if milestone == "fixed" &&  @current_user.measures.any?%>
         <div class="tags has-addons">
           <span class="tag">Ideal weight</span>
           <span class="tag is-success"><%= @current_user.ideal_weight %> kg.</span>
@@ -25,14 +25,23 @@
           <span class="tag">Not goal set.</span>
           <span class="tag is-warning"> Please set your Goal.</span>
         </div>
-      <% else%>
+      <% elsif @current_user.measures.any? %>
         <div class="tags has-addons">
           <span class="tag">Your goal weight</span>
           <span class="tag is-success"><%= @current_user.set_milestone %> kg.</span>
         </div>
       <% end %>
+      <!-- Set status BMI -->
+      <%if @current_user.measures.any? %>
+        <div class="tags has-addons">
+          <span class="tag">BMI level</span>
+          <span class="tag <%= @current_user.measures.first.status_label_bmi[1] %>">
+            <%= @current_user.measures.first.status_label_bmi[0] %>
+          </span>
+        </div>
+      <% end %>
     </div>
-    <div class="column is-6 has-text-right">
+    <div class="column is-5 has-text-right">
       <a class="button is-info" href="/measure/new">Add new measure</a>
       <a class="button is-success" href="/milestone">Set your Goal</a>
     </div>
