@@ -1,8 +1,8 @@
-<h1 class="title"  method="GET">
+<h1 class="title has-text-weight-normal page-header">
   Description About Ideal Weight
 </h1>
-<br />
-<p>
+
+<p class="has-text-weight-normal">
   An ideal weight is not an absolute target for either appearance or health. You
   can look great and be healthy at a wide range of weights. It is also worth
   noting that being underweight is associated with poor health outcomes and
@@ -10,31 +10,35 @@
   range
 </p>
 <br />
-<label class="label">Your Ideal weight for your Height is : </label>
-
-<input
-  class="input"
-  type="text"
-  style="width:300px"
-  name="fixed_weight"
-  value=" <%= @ideal_weight %> kg "
-  readonly
-/>
-<br /><br />
-
-<h2 class="title">And Now here It's up to You!</h2>
+<div class="field">
+  <div class="control">
+    <label class="label">Your Ideal weight for your Height is : </label>
+    <input
+      class="input"
+      type="text"
+      style="width:300px"
+      name="fixed_weight"
+      value=" <%= @ideal_weight %> kg "
+      readonly
+    />
+  </div>
+</div>
+<br />
+<h2 class="title is-3 has-text-weight-normal">And Now here It's up to You!</h2>
 
 <form action="/save_weight_wanted" method="POST">
-  <label class="label">Enter the Weight you want to reach:</label>
-
-  <input
-    class="input is-success"
-    style = "width:300px"
-    type = "number"
-    value = "<%= @current_user.set_milestone %>"
-    placeholder = "Whatever you want!"
-    name = "weight_wanted"
-  />
-  <br /><br />
+  <div class="field">
+    <div class="control">
+      <label class="label">Enter the Weight you want to reach:</label>
+      <input
+        class="input is-success"
+        style="width:300px"
+        type="number"
+        value="<%= @current_user.set_milestone %>"
+        placeholder="Whatever you want!"
+        name="weight_wanted"
+      />
+    </div>
+  </div>
   <button class="button is-link" style="width:100px">SAVE</button>
 </form>

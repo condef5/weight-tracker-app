@@ -15,11 +15,19 @@
       <a href="/?milestone=set_by_user" class="switch__right">Setted Goal </a>
       
       <!-- Set goal -->
-      <% if milestone == "set_by_user" && @current_user.set_milestone == "" %>
-        <span class="tag">Not goal set. Please set your Goal.</span>
-      <% elsif milestone == "set_by_user" && @current_user.set_milestone != "" %>
+      <%if milestone == "fixed" %>
         <div class="tags has-addons">
-          <span class="tag">Your goal</span>
+          <span class="tag">Ideal weight</span>
+          <span class="tag is-success"><%= @current_user.ideal_weight %> kg.</span>
+        </div>
+      <% elsif milestone == "set_by_user" && @current_user.set_milestone == "" %>
+        <div class="tags has-addons">
+          <span class="tag">Not goal set.</span>
+          <span class="tag is-warning"> Please set your Goal.</span>
+        </div>
+      <% else%>
+        <div class="tags has-addons">
+          <span class="tag">Your goal weight</span>
           <span class="tag is-success"><%= @current_user.set_milestone %> kg.</span>
         </div>
       <% end %>
