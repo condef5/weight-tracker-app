@@ -79,7 +79,6 @@ get '/milestone' do
     protected!
     measure_last = @current_user.measures.first
     @ideal_weight = measure_last.calc_ideal_weight(@current_user.gender)
-    set_flash("You Have modified your Goal Weight")
     erb :milestone
   rescue 
     @ideal_weight="Cannot be calculated : 0"
@@ -90,6 +89,7 @@ end
 post "/save_weight_wanted" do
   protected!
   @current_user.save_milestone(params["weight_wanted"])
+  set_flash("You Have modified your Goal Weight")
   redirect "/?milestone=set_by_user"
 end
 
@@ -102,6 +102,7 @@ get '/measure/new' do
   end
   erb :add_measures
 end
+
 # redirecting to "view_measures" view
 post '/adding_measures' do
   protected!
