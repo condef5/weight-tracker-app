@@ -121,5 +121,3 @@ not_found do
   status 404
   erb :oops
 end
-
-set :port, 8000
