@@ -115,11 +115,11 @@ class User
     if compare == ""
       return ""
     elsif weight_variation(index).to_f >= 0 && @measures[index].weight < compare
-      "yellowgreen"
+      "#23d160"
     elsif weight_variation(index).to_f < 0 && @measures[index].weight > compare
-      "yellowgreen"
+      "#23d160"
     else
-      "salmon"
+      "#FC8181"
     end
   end
 
