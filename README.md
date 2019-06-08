@@ -12,6 +12,17 @@ This project has been developed using the following technologies:
 
 The app is available [here](https://space-wtracker.herokuapp.com/)
 
+Credentials:
+```
+// normal user
+user: frank@gmail.com
+password: secret123
+
+// admin
+user: admin@gmail.com
+password: secret123
+```
+
 ![Login](https://i.imgur.com/ZJydGR8.png)
 
 ![Register](https://i.imgur.com/JLFHysv.png)
